@@ -1,0 +1,10 @@
+DONE
+
+++ moved spliceImage into new class "SpliceManager"
+
+++ added spliceImage button click to manhattan.mxml
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NOT DONE
+
+++ add external libs to get rid of errors

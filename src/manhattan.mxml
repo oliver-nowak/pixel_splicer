@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" 
+						layout="absolute" 
+						width="480" 
+						height="480" creationComplete="createComplete()">
+	<mx:Script>
+		<![CDATA[
+			import splicer.SpliceManager;
+			
+			import splicer.FileManager;
+			
+			private var fileManager:FileManager;
+			private var _spliceImage:SpliceManager;
+			
+			private function createComplete():void
+			{
+				fileManager = new FileManager();
+				_spliceImage = new SpliceManager();
+			}
+			
+			private function loadFiles():void
+			{	
+				fileManager.loadFiles();
+			}
+			
+			private function spliceFiles():void
+			{
+				trace("_spliceButton hit");
+				trace("drawButtons.getFrame Width : " + _loadFrames.getFrameWidth());
+				trace("drawButtons.getFrame Height : " + _loadFrames.getFrameHeight());
+			
+				var _spliceImageWidth = new uint();
+				_spliceImageWidth = _loadFrames.getFrameWidth();
+			
+				var _spliceImageHeight = new uint();
+				_spliceImageHeight = _loadFrames.getFrameHeight();
+			
+				var _spliceImageTotal = new uint();
+				_spliceImageTotal = _loadFrames.getFrameTotal();
+			
+				var _spliceImageArray = new Array();
+				for (var i:uint = 0; i < _spliceImageTotal; i++) {
+					_spliceImageArray.push(_loadFrames.getImages(i));
+				}
+				trace("drawButtons._spliceButtonDown._spliceImageArray.width : " + _spliceImageArray[0].width);
+			
+				_spliceImage = new spliceImage(_spliceImageWidth,_spliceImageHeight, _spliceImageTotal, _spliceImageArray);
+			
+				_spliceImage.name = "spliceImage";/////////////////////////////////////////////////////////NAME the Object for the Depth Check
+			
+				var correct_X:Number = 133;
+				var correct_Y:Number = 88;
+			
+				var mid_X:Number = 240;
+				var mid_Y:Number = 180;
+			
+				trace("midX : " + mid_X);
+			
+				var midImageWidth:Number =  _loadFrames.getFrameWidth() / 2;
+				var midImageHeight:Number = _loadFrames.getFrameHeight() / 2;
+				
+				trace("SPLICEIMAGEWIDTH : " + _spliceImage.Width);
+				
+				_spliceImage.x = (correct_X + mid_X) - (_spliceImage.Width / 2);
+				_spliceImage.y = (correct_Y + mid_Y) - (_spliceImage.Height / 2);
+			
+				//_spliceImage.x = (correct_X + mid_X) - _spliceImage.Width;
+				//_spliceImage.y = (correct_Y + mid_Y) - _spliceImage.Height;
+				trace("spliceX : " + _spliceImage.x);
+			
+				addChildAt(_spliceImage, 2);
+			
+				//addChild(_spliceImage);
+				//var target:DisplayObject = getChildByName("spliceImage");////////////////////////////////Image DEPTH CHECK/////////////
+				//trace("splice Image depth : " + getChildIndex(target)); 	
+			}
+			
+			private function clearImage():void
+			{
+				
+			}
+		
+			
+			
+		]]>
+	</mx:Script>
+	<mx:VBox x="0" 
+			 y="0" 
+ id="vbox1">
+		 <mx:Image x="41" y="-33" width="480" height="360" id="image1"/>
+		<mx:HBox width="100%" id="hbox1">
+			<mx:Button 
+					   label="Load" 
+					   click="loadFiles();"/>
+			<mx:Button 
+					   label="Splice" 
+					   click="spliceFiles();"/>
+			<mx:Button x="197.5" 
+					   y="410" 
+					   label="Clear" 
+					   click="clearImage();"/>
+		</mx:HBox>
+	</mx:VBox>
+	
+</mx:WindowedApplication>
